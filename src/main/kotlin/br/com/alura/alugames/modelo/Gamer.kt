@@ -7,6 +7,7 @@ import kotlin.random.Random
 data class Gamer(var nome: String, var email: String): Recomendavel {
 
     var dataNascimento: String? = null
+    var id = 0
     var usuario: String? = null
         set(value) {
             field = value
@@ -25,6 +26,32 @@ data class Gamer(var nome: String, var email: String): Recomendavel {
 
     private val listaNotas = mutableListOf<Int>()
 
+    constructor(nome: String, email: String,
+                dataNascimento: String?, usuario: String?, id: Int = 0): this(nome, email){
+        this.dataNascimento = dataNascimento
+        this.usuario = usuario
+        this.id = id
+        criarIdInterno()
+    }
+
+    override fun toString(): String {
+        return "Gamer(nome='$nome', \n" +
+                "email='$email', \n" +
+                "dataNascimento=$dataNascimento, \n" +
+                "usuario=$usuario, \n" +
+                "idInterno=$idInterno, \n" +
+                "Reputação:$media, \n" +
+                "Id: $id)"
+    }
+
+    //Bloco de código a ser executado antes da instanciação da classe pelo constructor
+    init{
+        if(nome.isNullOrBlank()){
+            throw IllegalArgumentException("Nome está em branco")
+        }
+        this.email = validarEmail()
+    }
+
     override val media: Double
         get() = listaNotas.average().formatoComDuasCasasDecimais()
 
@@ -39,31 +66,6 @@ data class Gamer(var nome: String, var email: String): Recomendavel {
     fun recomendarJogo(jogo: Jogo, nota: Int) {
         jogo.recomendar(nota)
         jogosRecomendados.add(jogo)
-    }
-
-    constructor(nome: String, email: String,
-                dataNascimento: String, usuario: String): this(nome, email){
-        this.dataNascimento = dataNascimento
-        this.usuario = usuario
-        criarIdInterno()
-    }
-
-    //Bloco de código a ser executado antes da instanciação da classe pelo constructor
-    init{
-        if(nome.isNullOrBlank()){
-            throw IllegalArgumentException("Nome está em branco")
-        }
-        this.email = validarEmail()
-    }
-
-
-    override fun toString(): String {
-        return "Gamer(nome='$nome', \n" +
-                "email='$email', \n" +
-                "dataNascimento=$dataNascimento, \n" +
-                "usuario=$usuario, \n" +
-                "idInterno=$idInterno, \n" +
-                "Reputação:$media)"
     }
 
     fun criarIdInterno() {

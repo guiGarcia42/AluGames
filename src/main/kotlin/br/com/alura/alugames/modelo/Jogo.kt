@@ -5,12 +5,15 @@ import com.google.gson.annotations.Expose
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+
 data class Jogo(
     @Expose val titulo:String,
     @Expose val capa:String): Recomendavel {
 
     var descricao: String? = null
     var preco = BigDecimal("0.0")
+
+    var id = 0
     val listaNotas = mutableListOf<Int>()
 
     override val media: Double
@@ -20,9 +23,11 @@ data class Jogo(
         listaNotas.add(nota)
     }
 
-    constructor(titulo: String, capa: String, preco: BigDecimal, descricao: String): this(titulo, capa){
+    constructor(titulo: String, capa: String, preco: BigDecimal, descricao: String?, id: Int = 0):
+            this(titulo, capa){
         this.preco = preco.setScale(2, RoundingMode.HALF_EVEN)
         this.descricao = descricao
+        this.id = id
     }
 
     override fun toString(): String {
@@ -31,8 +36,7 @@ data class Jogo(
                 "Capa= $capa \n" +
                 "Preço= $preco \n" +
                 "Descrição= $descricao \n" +
-                "Reputação= $media"
+                "Reputação= $media \n" +
+                "Id: $id"
     }
-
-
 }
