@@ -23,10 +23,15 @@ fun main() {
     // inicializando a conexao e passando para a classe dao (assim abrindo a conexao com o banco)
     val manager = Banco.getEntityManager()
     val jogoDao = JogosDAO(manager)
-    jogoDao.adicionarJogos(jogo2)
+    // jogoDao.adicionar(jogo2)
+
+    val jogoRecuperado = jogoDao.recuperarPeloId(3)
+    println(jogoRecuperado)
+
+    jogoDao.apagar(3)
 
 
-    val listaJogos: List<Jogo> = jogoDao.getJogos()
+    val listaJogos: List<Jogo> = jogoDao.getLista()
     println(listaJogos)
 
     manager.close()

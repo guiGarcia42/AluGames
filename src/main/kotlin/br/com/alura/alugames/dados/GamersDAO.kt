@@ -3,25 +3,25 @@ package br.com.alura.alugames.dados
 import br.com.alura.alugames.modelo.Gamer
 import javax.persistence.EntityManager
 
-class GamersDAO(val manager: EntityManager) {
+class GamersDAO(manager: EntityManager): DAO<Gamer, GamerEntity>(manager, GamerEntity::class.java) {
 
-    fun getGamers(): List<Gamer>{
-        val query = manager.createQuery("FROM GamerEntity", GamerEntity::class.java) //digita o nome da Classe
-        return query.resultList.map { entity ->
-            Gamer(
-                entity.nome,
-                entity.email,
-                entity.dataNascimento,
-                entity.usuario,
-                entity.id
-            )
-        }
+    override fun toEntity(objeto: Gamer): GamerEntity {
+        return GamerEntity(
+            objeto.id,
+            objeto.nome,
+            objeto.email,
+            objeto.dataNascimento,
+            objeto.usuario)
     }
 
-    fun adicionarGamer(gamer: Gamer) {
-        val entity = GamerEntity(gamer.id, gamer.nome, gamer.email, gamer.dataNascimento, gamer.usuario)
-        manager.transaction.begin()
-        manager.persist(entity)
-        manager.transaction.commit()
+    override fun toModel(entity: GamerEntity): Gamer {
+        return Gamer(
+            entity.nome,
+            entity.email,
+            entity.dataNascimento,
+            entity.usuario,
+            entity.id
+        )
     }
+
 }
