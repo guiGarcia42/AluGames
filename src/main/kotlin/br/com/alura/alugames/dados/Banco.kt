@@ -5,17 +5,6 @@ import javax.persistence.EntityManagerFactory
 import javax.persistence.Persistence
 
 object Banco {
-//    fun obterConexao(): Connection? {
-//        return try {
-//            DriverManager.getConnection(
-//                "jdbc:mysql://localhost:3306/alugames",
-//                "guigarcia42",
-//                "Billyebela42%")
-//        } catch (e: SQLException) {
-//            e.printStackTrace()
-//            null
-//        }
-//    }
 
     fun getEntityManager(): EntityManager {
         // factory é responsável por gerenciar a conexão, passando o nome do banco que vamos criar esse Factory

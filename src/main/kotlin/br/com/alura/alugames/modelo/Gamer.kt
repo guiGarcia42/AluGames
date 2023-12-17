@@ -41,7 +41,8 @@ data class Gamer(var nome: String, var email: String): Recomendavel {
                 "usuario=$usuario, \n" +
                 "idInterno=$idInterno, \n" +
                 "Reputação:$media, \n" +
-                "Id: $id)"
+                "Id: $id, \n" +
+                "Plano: $plano)"
     }
 
     //Bloco de código a ser executado antes da instanciação da classe pelo constructor

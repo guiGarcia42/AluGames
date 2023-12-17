@@ -5,10 +5,10 @@ import java.math.RoundingMode
 
 class PlanoAssinatura(
     tipo: String,
-    id: Int = 0,
     val mensalidade: BigDecimal,
     val jogosIncluidos: Int,
-    val percentualDescontoReputacao: BigDecimal) : Plano(tipo, id) {
+    val percentualDescontoReputacao: BigDecimal,
+    id: Int = 0,) : Plano(tipo, id) {
 
     override fun obterValor(aluguel: Aluguel): BigDecimal {
         val totalJogosNoMes = aluguel.gamer.jogosDoMes(aluguel.periodo.dataInicial.monthValue).size + 1
